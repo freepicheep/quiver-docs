@@ -1,0 +1,77 @@
+<style>
+  .hextra-code-block[data-shiki-lang] .hextra-shiki-target {
+    margin-bottom: 1rem;
+  }
+
+  .hextra-code-block[data-shiki-lang] .shiki {
+    margin: 0;
+    overflow-x: auto;
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: var(--shiki-light-bg) !important;
+    border: 1px solid color-mix(in oklab, var(--hx-color-gray-900) 10%, transparent);
+  }
+
+  .hextra-code-block[data-shiki-lang] .shiki code {
+    display: grid;
+  }
+
+  .hextra-code-block[data-shiki-lang] .shiki .line {
+    min-height: 1.5rem;
+  }
+
+  .dark .hextra-code-block[data-shiki-lang] .shiki {
+    background: var(--shiki-dark-bg) !important;
+    border-color: color-mix(in oklab, var(--hx-color-white) 14%, transparent);
+  }
+
+  .hextra-code-block[data-shiki-lang] .hextra-code-filename + .hextra-shiki-target .shiki {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding-top: 3rem;
+  }
+</style>
+
+<script type="module">
+  import { codeToHtml } from 'https://esm.sh/shiki@3.23.0'
+
+  const SHIKI_SELECTOR = '.hextra-code-block[data-shiki-lang="nushell"]'
+  const SHIKI_THEMES = {
+    light: 'rose-pine-dawn',
+    dark: 'rose-pine-moon',
+  }
+
+  async function highlightNushellBlocks() {
+    const blocks = document.querySelectorAll(SHIKI_SELECTOR)
+    if (!blocks.length) return
+
+    await Promise.all(Array.from(blocks, async (block) => {
+      if (block.dataset.shikiRendered === 'true') return
+
+      const target = block.querySelector('.hextra-shiki-target')
+      const source = block.querySelector('code[data-shiki-source="nushell"]')
+      if (!target || !source) return
+
+      const code = source.textContent ?? ''
+      const html = await codeToHtml(code, {
+        lang: 'nushell',
+        themes: SHIKI_THEMES,
+      })
+
+      const template = document.createElement('template')
+      template.innerHTML = html.trim()
+      const pre = template.content.querySelector('pre')
+      if (!pre) return
+
+      pre.classList.add('not-prose')
+      target.replaceChildren(pre)
+      block.dataset.shikiRendered = 'true'
+    }))
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', highlightNushellBlocks, { once: true })
+  } else {
+    highlightNushellBlocks()
+  }
+</script>

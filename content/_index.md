@@ -1,17 +1,9 @@
 ---
-title: My Site
+title: Quiver
 toc: false
 ---
 
-This is the landing page.
+<meta http-equiv="refresh" content="0; url=/docs/">
+<script>window.location.replace("/docs/");</script>
 
-## Explore
-
-{{< cards >}}
-  {{< card link="docs" title="Docs" icon="book-open" >}}
-  {{< card link="about" title="About" icon="user" >}}
-{{< /cards >}}
-
-## Documentation
-
-For more information, visit [Hextra](https://imfing.github.io/hextra).
+Redirecting to [Introduction](/docs/).
