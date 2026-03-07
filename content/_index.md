@@ -3,6 +3,7 @@ title: Introduction
 type: docs
 toc: true
 weight: 1
+description: "Quiver is a fast Nu package and project manager, written in Rust."
 ---
 
 Quiver is an extremely fast Nu project and package manager. It installs Nu modules and plugins distributed as git repositories. It handles dependency resolution, fetching, lockfiles, and project-local environment setup for Nushell projects.

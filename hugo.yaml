@@ -47,6 +47,9 @@ params:
       width: 25
       height: 25
 
+  images:
+    - "/images/quiver_logo.webp"
+
   footer:
     displayCopyright: false
     displayPoweredBy: true
