@@ -1,4 +1,5 @@
 title: Quiver
+icon: ./static/favicon-96x96.png
 
 module:
   imports:
@@ -39,7 +40,12 @@ params:
 
   navbar:
     displayTitle: true
-    displayLogo: false
+    displayLogo: true
+    logo:
+      path: favicon.svg
+      link: /
+      width: 25
+      height: 25
 
   footer:
     displayCopyright: false
