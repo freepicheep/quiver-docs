@@ -32,4 +32,4 @@ cargo install --git https://github.com/freepicheep/quiver
 qv --version
 ```
 
-After Quiver is installed, continue with [Getting Started](/docs/getting-started).
+After Quiver is installed, continue with [Getting Started](getting-started).

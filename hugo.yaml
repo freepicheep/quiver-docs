@@ -17,7 +17,7 @@ markup:
 menu:
   main:
     - name: Docs
-      pageRef: /docs
+      pageRef: /
       weight: 1
     - name: About
       pageRef: /about
@@ -33,6 +33,10 @@ menu:
         type: search
 
 params:
+  theme:
+    default: system
+    displayToggle: true
+
   navbar:
     displayTitle: true
     displayLogo: false
@@ -43,4 +47,4 @@ params:
 
   editURL:
     enable: true
-    base: "https://github.com/freepicheep/quiver/edit/main/quiver-docs/content"
+    base: "https://github.com/freepicheep/quiver-docs/edit/main/content"

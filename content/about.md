@@ -11,4 +11,4 @@ Quiver is a module and plugin manager for [Nushell](https://www.nushell.sh/), wr
 
 The project is intentionally narrow in scope. Quiver does not host packages or define a centralized registry. Dependencies are fetched from git repositories, resolved to exact commits, and installed into a Nushell-friendly layout.
 
-If you are new to the tool, start at [Getting Started](/docs/getting-started). If you want the implementation model, go to [Architecture](/docs/architecture).
+If you are new to the tool, start at [Getting Started](getting-started). If you want the implementation model, go to [Architecture](architecture).
