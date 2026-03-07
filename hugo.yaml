@@ -54,3 +54,8 @@ params:
   editURL:
     enable: true
     base: "https://github.com/freepicheep/quiver-docs/edit/main/content"
+
+outputs:
+  home: [html, llms]
+  page: [html]
+  section: [html]
