@@ -4,7 +4,7 @@ type: docs
 weight: 5
 ---
 
-Quiver creates a project-local environment in `.nu-env/`.
+Upon project initialization or installation, Quiver creates a project-local environment in `.nu-env/`.
 
 ## Directory layout
 
@@ -72,4 +72,4 @@ mkdir ($nu.default-config-dir | path join "vendor" "autoload")
 qv hook | save -f ($nu.default-config-dir | path join "vendor" "autoload" "quiver_hook.nu")
 ```
 
-This hook is useful for keeping `NU_LIB_DIRS` in sync with the current project. For the full overlay behavior, use `.nu-env/activate.nu`.
+This hook is useful for keeping `$env.NU_LIB_DIRS` in sync with the current project. For the full overlay behavior, use `overlay use .nu-env/activate.nu`.

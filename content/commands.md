@@ -4,8 +4,6 @@ type: docs
 weight: 3
 ---
 
-This page summarizes the main CLI commands implemented in Quiver today.
-
 ## Project setup
 
 ### `qv init`
