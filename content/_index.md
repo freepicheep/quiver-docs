@@ -16,7 +16,7 @@ Quiver is an extremely fast Nu project and package manager. It installs Nu modul
   {{< card link="environment-and-activation" title="Environment and Activation" icon="cube" >}}
   {{< card link="global-config" title="Global Config" icon="cog" >}}
   {{< card link="security" title="Security" icon="shield-check" >}}
-  {{< card link="architecture" title="Architecture" icon="rectangle-stack" >}}
+  {{< card link="architecture" title="Architecture" icon="square-3-stack-3d" >}}
 {{< /cards >}}
 
 ## What Quiver Does
