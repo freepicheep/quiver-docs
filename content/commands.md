@@ -48,6 +48,7 @@ qv add-plugin polars
 
 Supported flags:
 
+- `-g`, `--global`
 - `--tag`
 - `--rev`
 - `--branch`

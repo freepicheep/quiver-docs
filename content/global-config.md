@@ -8,7 +8,8 @@ Global configuration lives at `~/.config/quiver/config.toml`.
 
 Use it for:
 
-- global module dependencies
+- global module installs
+- global plugin installs
 - default git provider selection for `owner/repo` shorthand
 - install mode defaults
 - security defaults
@@ -19,8 +20,11 @@ Use it for:
 default_git_provider = "github"
 install_mode = "clone"
 
-[dependencies]
-nu-utils = { git = "https://github.com/user/nu-utils", tag = "v1.0.0" }
+[modules]
+nu-salesforce = { git = "https://github.com/freepicheep/nu-salesforce", tag = "v0.3.1" }
+
+[plugins]
+nu_plugin_semver = { git = "https://github.com/abusch/nu_plugin_semver", tag = "v0.11.15" }
 
 [security]
 require_signed_assets = true
