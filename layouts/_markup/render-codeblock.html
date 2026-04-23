@@ -3,39 +3,35 @@
 {{- $base_url := .Attributes.base_url | default "" -}}
 {{- $lang := .Attributes.lang | default .Type -}}
 {{- $normalizedLang := lower $lang -}}
-
-{{- if or (eq $normalizedLang "nu") (eq $normalizedLang "nushell") -}}
-  <div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code" data-shiki-lang="nushell" data-shiki-class="{{ $class }}">
-    {{- if $filename -}}
-      <div class="hextra-code-filename not-prose" dir="auto">
-        {{- if $base_url -}}
-          {{- $base_url = strings.TrimSuffix "/" $base_url -}}
-          {{- $filename = strings.TrimPrefix "/" $filename -}}
-          {{- $file_url := urls.JoinPath $base_url $filename -}}
-          <a class="hx:no-underline hx:inline-flex hx:items-center hx:gap-1" href="{{ $file_url }}" target="_blank" rel="noopener noreferrer">
-            <span>{{- $filename -}}</span>
-            {{- partial "utils/icon" (dict "name" "external-link" "attributes" "height=1em") -}}
-          </a>
-        {{- else -}}
-          {{- $filename -}}
-        {{- end -}}
-      </div>
-    {{- end -}}
-
-    <div class="hextra-shiki-target">
-      <pre><code class="language-nushell" data-shiki-source="nushell">{{ .Inner }}</code></pre>
-    </div>
-
-    {{- if or (eq site.Params.highlight.copy.enable nil) (site.Params.highlight.copy.enable) -}}
-      {{- partialCached "components/codeblock-copy-button" (dict "filename" $filename) $filename -}}
-    {{- end -}}
-  </div>
-{{- else -}}
-  <div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
-    {{- partial "components/codeblock" (dict "filename" $filename "lang" $lang "base_url" $base_url "content" .Inner "options" .Options) -}}
-
-    {{- if or (eq site.Params.highlight.copy.enable nil) (site.Params.highlight.copy.enable) -}}
-      {{- partialCached "components/codeblock-copy-button" (dict "filename" $filename) $filename -}}
-    {{- end -}}
-  </div>
+{{- $shikiLang := $normalizedLang -}}
+{{- if eq $normalizedLang "nu" -}}
+  {{- $shikiLang = "nushell" -}}
+{{- else if eq $normalizedLang "" -}}
+  {{- $shikiLang = "text" -}}
 {{- end -}}
+
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code" data-shiki-lang="{{ $shikiLang }}" data-shiki-class="{{ $class }}">
+  {{- if $filename -}}
+    <div class="hextra-code-filename not-prose" dir="auto">
+      {{- if $base_url -}}
+        {{- $base_url = strings.TrimSuffix "/" $base_url -}}
+        {{- $filename = strings.TrimPrefix "/" $filename -}}
+        {{- $file_url := urls.JoinPath $base_url $filename -}}
+        <a class="hx:no-underline hx:inline-flex hx:items-center hx:gap-1" href="{{ $file_url }}" target="_blank" rel="noopener noreferrer">
+          <span>{{- $filename -}}</span>
+          {{- partial "utils/icon" (dict "name" "external-link" "attributes" "height=1em") -}}
+        </a>
+      {{- else -}}
+        {{- $filename -}}
+      {{- end -}}
+    </div>
+  {{- end -}}
+
+  <div class="hextra-shiki-target">
+    <pre><code class="language-{{ $shikiLang }}" data-shiki-source="{{ $shikiLang }}">{{ .Inner }}</code></pre>
+  </div>
+
+  {{- if or (eq site.Params.highlight.copy.enable nil) (site.Params.highlight.copy.enable) -}}
+    {{- partialCached "components/codeblock-copy-button" (dict "filename" $filename) $filename -}}
+  {{- end -}}
+</div>

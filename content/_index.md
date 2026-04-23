@@ -85,7 +85,7 @@ A Quiver project centers around these files:
 - `.nu-env/` contains the generated local environment
 - `quiver.lock` pins exact commits and checksums
 
-Running `qv init` or `qv install` prepares a local environment that looks like this:
+Running `{nushell} qv init` or `{nushell} qv install` prepares a local environment that looks like this:
 
 ```text
 .nu-env/

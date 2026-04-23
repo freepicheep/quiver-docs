@@ -72,8 +72,8 @@ Plugin entries may also include:
 
 ## Resolution behavior
 
-- `qv install` reuses `quiver.lock` when it is present and still matches the manifest.
-- `qv install --frozen` refuses to resolve and requires a valid lockfile.
-- `qv update` deletes the local lockfile and resolves again.
+- `{nushell} qv install` reuses `quiver.lock` when it is present and still matches the manifest.
+- `{nushell} qv install --frozen` refuses to resolve and requires a valid lockfile.
+- `{nushell} qv update` deletes the local lockfile and resolves again.
 
 Commit `quiver.lock` to version control if you want reproducible installs across machines and CI.

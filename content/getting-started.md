@@ -84,4 +84,4 @@ qv list
 
 ## Remove dependencies
 
-You can either remove dependencies directly from the `nupackage.toml` and run `qv install`, or you can run `qv rm dependency-name` and it will remove the dependency.
+You can either remove dependencies directly from the `nupackage.toml` and run `qv install`, or you can run `{nushell} qv rm <dependency-name>` and it will remove the dependency.

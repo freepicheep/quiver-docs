@@ -3,6 +3,20 @@
     margin-bottom: 1rem;
   }
 
+  code[data-inline-shiki] {
+    display: inline-block;
+    vertical-align: baseline;
+  }
+
+  code[data-inline-shiki] {
+    margin: 0;
+    padding: 0.14em 0.38em;
+    border-radius: 0.4rem;
+    background: var(--shiki-light-bg) !important;
+    border: 1px solid color-mix(in oklab, var(--hx-color-gray-900) 10%, transparent);
+    white-space: pre-wrap;
+  }
+
   .hextra-code-block[data-shiki-lang] .shiki {
     margin: 0;
     overflow-x: auto;
@@ -26,7 +40,20 @@
     border-color: color-mix(in oklab, var(--hx-color-white) 14%, transparent);
   }
 
+  .dark code[data-inline-shiki] {
+    background: var(--shiki-dark-bg) !important;
+    color: var(--shiki-dark) !important;
+    border-color: color-mix(in oklab, var(--hx-color-white) 14%, transparent);
+  }
+
   .dark .hextra-code-block[data-shiki-lang] .shiki span {
+    color: var(--shiki-dark) !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
+
+  .dark code[data-inline-shiki] span {
     color: var(--shiki-dark) !important;
     font-style: var(--shiki-dark-font-style) !important;
     font-weight: var(--shiki-dark-font-weight) !important;
@@ -43,46 +70,115 @@
 <script type="module">
   import { codeToHtml } from 'https://esm.sh/shiki@3.23.0'
 
-  const SHIKI_SELECTOR = '.hextra-code-block[data-shiki-lang="nushell"]'
+  const SHIKI_SELECTOR = '.hextra-code-block[data-shiki-lang]'
   const SHIKI_THEMES = {
     light: 'rose-pine-dawn',
     dark: 'rose-pine',
   }
 
-  async function highlightNushellBlocks() {
+  async function renderBlock(block) {
+    const target = block.querySelector('.hextra-shiki-target')
+    if (!target) return
+
+    const lang =
+      block.dataset.shikiLang ||
+      block.querySelector('code[data-shiki-source]')?.dataset.shikiSource ||
+      'text'
+    const source =
+      block.dataset.shikiSource ??
+      block.querySelector('code[data-shiki-source]')?.textContent ??
+      ''
+    if (!source) return
+
+    block.dataset.shikiSource = source
+
+    let html
+    try {
+      html = await codeToHtml(source, {
+        lang,
+        themes: SHIKI_THEMES,
+      })
+    } catch (_error) {
+      html = await codeToHtml(source, {
+        lang: 'text',
+        themes: SHIKI_THEMES,
+      })
+    }
+
+    const template = document.createElement('template')
+    template.innerHTML = html.trim()
+    const pre = template.content.querySelector('pre')
+    if (!pre) return
+
+    pre.classList.add('not-prose')
+    target.replaceChildren(pre)
+    block.dataset.shikiRendered = 'true'
+  }
+
+  async function highlightCodeBlocks() {
     const blocks = document.querySelectorAll(SHIKI_SELECTOR)
     if (!blocks.length) return
 
-    await Promise.all(Array.from(blocks, async (block) => {
-      const target = block.querySelector('.hextra-shiki-target')
-      if (!target) return
+    await Promise.all(Array.from(blocks, renderBlock))
+  }
 
-      const source =
-        block.dataset.shikiSource ??
-        block.querySelector('code[data-shiki-source="nushell"]')?.textContent ??
-        ''
-      if (!source) return
+  async function renderInlineCode(code) {
+    if (code.closest('pre') || code.dataset.inlineShikiRendered === 'true') return
 
-      block.dataset.shikiSource = source
-      const html = await codeToHtml(source, {
-        lang: 'nushell',
+    const match = code.textContent?.match(/^\{([a-z0-9_+-]+)\}\s+([\s\S]+)$/i)
+    if (!match) return
+
+    const [, rawLang, source] = match
+    const lang = rawLang.toLowerCase() === 'nu' ? 'nushell' : rawLang.toLowerCase()
+
+    let html
+    try {
+      html = await codeToHtml(source, {
+        lang,
         themes: SHIKI_THEMES,
       })
+    } catch (_error) {
+      html = await codeToHtml(source, {
+        lang: 'text',
+        themes: SHIKI_THEMES,
+      })
+    }
 
-      const template = document.createElement('template')
-      template.innerHTML = html.trim()
-      const pre = template.content.querySelector('pre')
-      if (!pre) return
+    const template = document.createElement('template')
+    template.innerHTML = html.trim()
+    const pre = template.content.querySelector('pre')
+    if (!pre) return
 
-      pre.classList.add('not-prose')
-      target.replaceChildren(pre)
-      block.dataset.shikiRendered = 'true'
-    }))
+    const innerCode = pre.querySelector('code')
+    if (!innerCode) return
+
+    code.dataset.inlineShiki = 'true'
+    code.dataset.inlineShikiRendered = 'true'
+    code.setAttribute('data-inline-shiki', lang)
+    code.classList.add(...pre.classList)
+    if (pre.getAttribute('style')) {
+      code.setAttribute('style', pre.getAttribute('style'))
+    }
+    code.replaceChildren(...innerCode.childNodes)
+  }
+
+  async function highlightInlineCode() {
+    const inlineCodes = document.querySelectorAll('.content code, article code, main code')
+    if (!inlineCodes.length) return
+
+    await Promise.all(Array.from(inlineCodes, renderInlineCode))
+  }
+
+  async function highlightAllCode() {
+    await Promise.all([
+      highlightCodeBlocks(),
+      highlightInlineCode(),
+    ])
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', highlightNushellBlocks, { once: true })
+    document.addEventListener('DOMContentLoaded', highlightAllCode, { once: true })
   } else {
-    highlightNushellBlocks()
+    highlightAllCode()
   }
 </script>

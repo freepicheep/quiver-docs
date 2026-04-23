@@ -28,7 +28,7 @@ Key pieces:
 
 ## Running Scripts or Entering the Nu REPL for The Environment
 
-For most automation and scripting, `qv run` is the simplest entrypoint.
+For most automation and scripting, `{nushell} qv run` is the simplest entrypoint.
 
 ```nushell
 # run a specific script with all the dependencies loaded (including plugins)
@@ -72,4 +72,4 @@ mkdir ($nu.default-config-dir | path join "vendor" "autoload")
 qv hook | save -f ($nu.default-config-dir | path join "vendor" "autoload" "quiver_hook.nu")
 ```
 
-This hook is useful for keeping `$env.NU_LIB_DIRS` in sync with the current project. For the full overlay behavior, use `overlay use .nu-env/activate.nu`.
+This hook is useful for keeping `$env.NU_LIB_DIRS` in sync with the current project. For the full overlay behavior, use `{nushell} overlay use .nu-env/activate.nu`.
