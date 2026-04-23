@@ -1,7 +1,7 @@
 ---
 title: qvx
 type: docs
-weight: 3
+weight: 7
 ---
 
 `qvx` runs an exported command from a remote Nu module without creating a local project first.

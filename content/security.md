@@ -1,7 +1,7 @@
 ---
 title: Security
 type: docs
-weight: 7
+weight: 8
 ---
 
 Quiver includes checksum verification for downloaded release assets, especially Nushell archives and plugin binaries.

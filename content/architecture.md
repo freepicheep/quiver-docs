@@ -1,7 +1,7 @@
 ---
 title: Architecture
 type: docs
-weight: 8
+weight: 9
 ---
 
 Quiver is a single-crate Rust CLI. The codebase is intentionally split into focused modules under `src/`.
