@@ -22,7 +22,15 @@
 
   .dark .hextra-code-block[data-shiki-lang] .shiki {
     background: var(--shiki-dark-bg) !important;
+    color: var(--shiki-dark) !important;
     border-color: color-mix(in oklab, var(--hx-color-white) 14%, transparent);
+  }
+
+  .dark .hextra-code-block[data-shiki-lang] .shiki span {
+    color: var(--shiki-dark) !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
   }
 
   .hextra-code-block[data-shiki-lang] .hextra-code-filename + .hextra-shiki-target .shiki {
@@ -38,7 +46,7 @@
   const SHIKI_SELECTOR = '.hextra-code-block[data-shiki-lang="nushell"]'
   const SHIKI_THEMES = {
     light: 'rose-pine-dawn',
-    dark: 'rose-pine-moon',
+    dark: 'rose-pine',
   }
 
   async function highlightNushellBlocks() {
@@ -46,14 +54,17 @@
     if (!blocks.length) return
 
     await Promise.all(Array.from(blocks, async (block) => {
-      if (block.dataset.shikiRendered === 'true') return
-
       const target = block.querySelector('.hextra-shiki-target')
-      const source = block.querySelector('code[data-shiki-source="nushell"]')
-      if (!target || !source) return
+      if (!target) return
 
-      const code = source.textContent ?? ''
-      const html = await codeToHtml(code, {
+      const source =
+        block.dataset.shikiSource ??
+        block.querySelector('code[data-shiki-source="nushell"]')?.textContent ??
+        ''
+      if (!source) return
+
+      block.dataset.shikiSource = source
+      const html = await codeToHtml(source, {
         lang: 'nushell',
         themes: SHIKI_THEMES,
       })
