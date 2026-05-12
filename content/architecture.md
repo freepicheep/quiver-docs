@@ -9,7 +9,7 @@ Quiver is a single-crate Rust CLI. The codebase is intentionally split into focu
 ## High-level flow
 
 ```text
-nupackage.toml
+nupackage.nuon
   -> resolver
   -> installer
   -> .nu-env/modules
@@ -18,7 +18,7 @@ nupackage.toml
 
 At install time, the flow is:
 
-1. Parse `nupackage.toml`.
+1. Parse `nupackage.nuon`.
 2. Resolve module and plugin dependencies to exact commits.
 3. Fetch repository data and release assets as needed.
 4. Materialize modules into `.nu-env/modules/` or the global modules directory.

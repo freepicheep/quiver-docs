@@ -49,7 +49,7 @@ You can set the Nu version requirement for the ephemeral environment:
 qvx --nu-version ">=0.109,<0.111" freepicheep/nu-doc-gen generate-doc-site nu-salesforce .
 ```
 
-If `--nu-version` is not provided and the remote module contains a `nupackage.toml` with `package.nu-version`, Quiver installs and uses that version of Nu.
+If `--nu-version` is not provided and the remote module contains a `nupackage.nuon` with `package.nu-version`, Quiver installs and uses that version of Nu.
 
 ## How It Works
 

@@ -8,7 +8,7 @@ weight: 3
 
 ### `qv init`
 
-Create a new `nupackage.toml` in the current directory and scaffold the initial module and environment files.
+Create a new `nupackage.nuon` in the current directory and scaffold the initial module and environment files.
 
 ```nushell
 qv init --name my-module --version 0.1.0 --nu-version 0.110.0
@@ -68,7 +68,7 @@ qv remove -g nu-utils
 
 ### `qv install`
 
-Install project dependencies from `nupackage.toml`.
+Install project dependencies from `nupackage.nuon`.
 
 ```nushell
 qv install

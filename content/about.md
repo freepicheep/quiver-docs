@@ -5,7 +5,7 @@ toc: false
 
 Quiver is a module and plugin manager for [Nushell](https://www.nushell.sh/), written in Rust. It is built around a small set of project files:
 
-- `nupackage.toml` declares package metadata and dependencies.
+- `nupackage.nuon` declares package metadata and dependencies.
 - `quiver.lock` records the exact commits and checksums that were installed.
 - `.nu-env/` contains the generated project environment, including module paths, plugin config, and a project-specific `nu` entrypoint.
 

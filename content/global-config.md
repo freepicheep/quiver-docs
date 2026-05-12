@@ -4,7 +4,7 @@ type: docs
 weight: 6
 ---
 
-Global configuration lives at `~/.config/quiver/config.toml`.
+Global configuration lives at `~/.config/quiver/config.nuon`.
 
 Use it for:
 
@@ -16,18 +16,24 @@ Use it for:
 
 ## Example
 
-```toml
-default_git_provider = "github"
-install_mode = "clone"
-
-[modules]
-nu-salesforce = { git = "https://github.com/freepicheep/nu-salesforce", tag = "v0.3.1" }
-
-[plugins]
-nu_plugin_semver = { git = "https://github.com/abusch/nu_plugin_semver", tag = "v0.11.15" }
-
-[security]
-require_signed_assets = true
+```nu
+{
+  default_git_provider: github,
+  install_mode: clone,
+  security: {
+    require_signed_assets: true
+  },
+  modules: {
+    nu-repl-command-info: {
+      git: "https://github.com/Bahex/nu-repl-command-info.git",
+      branch: main
+    },
+    nu-salesforce: {
+      git: "https://github.com/freepicheep/nu-salesforce",
+      tag: "v0.3.2"
+    }
+  }
+}
 ```
 
 ## Keys

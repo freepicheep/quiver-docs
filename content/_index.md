@@ -81,7 +81,7 @@ qv run nu
 
 A Quiver project centers around these files:
 
-- `nupackage.toml` declares package metadata and dependencies
+- `nupackage.nuon` declares package metadata and dependencies
 - `.nu-env/` contains the generated local environment
 - `quiver.lock` pins exact commits and checksums
 

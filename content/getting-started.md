@@ -14,12 +14,12 @@ qv init --nu-version ">=0.109,<0.111" # optionally specify the version(s) of Nu 
 
 `qv init` creates:
 
-- `nupackage.toml`
+- `nupackage.nuon`
 - `<project-dir-name>/mod.nu`
 - `.nu-env/`
 - `.gitignore` entry for `.nu-env/`
 
-It will download the specified version of Nu. If you didn't specify a version of Nu, it will download the Nu binary matching the version in your PATH. Quiver does this because if it used your system installation of Nu and you upgraded that, the symlink to `.nu-env/bin/` wouldn't match the version specified in the project's `nupackage.toml`.
+It will download the specified version of Nu. If you didn't specify a version of Nu, it will download the Nu binary matching the version in your PATH. Quiver does this because if it used your system installation of Nu and you upgraded that, the symlink to `.nu-env/bin/` wouldn't match the version specified in the project's `nupackage.nuon`.
 
 ## Add dependencies
 
@@ -84,4 +84,4 @@ qv list
 
 ## Remove dependencies
 
-You can either remove dependencies directly from the `nupackage.toml` and run `qv install`, or you can run `{nushell} qv rm <dependency-name>` and it will remove the dependency.
+You can either remove dependencies directly from the `nupackage.nuon` and run `qv install`, or you can run `{nushell} qv rm <dependency-name>` and it will remove the dependency.

@@ -4,29 +4,30 @@ type: docs
 weight: 4
 ---
 
-Quiver projects are defined by `nupackage.toml` and reproduced by `quiver.lock`.
+Quiver projects are defined by `nupackage.nuon` and reproduced by `quiver.lock`.
 
-## `nupackage.toml`
+## `nupackage.nuon`
 
 The manifest has a `[package]` section and dependency groups for modules and plugins.
 
-```toml
-[package]
-name = "my-module"
-version = "0.1.0"
-description = "Example Quiver package"
-license = "MIT"
-authors = ["Your Name"]
-nu-version = ">=0.109,<0.111"
-
-[dependencies.modules]
-nu-utils = { git = "https://github.com/user/nu-utils", tag = "v1.0.0" }
-other-lib = { git = "https://github.com/user/other-lib", branch = "main" }
-pinned = { git = "https://github.com/user/pinned", rev = "a3f9c12" }
-
-[dependencies.plugins]
-nu_plugin_inc = { git = "https://github.com/nushell/nu_plugin_inc", tag = "v0.91.0", bin = "nu_plugin_inc" }
-nu_plugin_polars = { source = "nu-core", bin = "nu_plugin_polars" }
+```nu
+{
+  package: {
+    name: "rate-change-work",
+    version: "0.2.4",
+    description: "An example project",
+    authors: ["Me"],
+    nu-version: ">=0.112.2",
+  },
+  dependencies: {
+    modules: {
+      nu-salesforce: { git: "https://github.com/freepicheep/nu-salesforce", tag: "v0.3.2" },
+    },
+    plugins: {
+      nu_plugin_polars: { source: "nu-core", bin: "nu_plugin_polars" },
+    },
+  },
+}
 ```
 
 ### Module dependencies
@@ -52,15 +53,28 @@ The optional `bin` field is used when the binary name differs from the dependenc
 
 The lockfile pins resolved commits and installation checksums. Quiver writes it automatically after installation.
 
-```toml
-version = 1
-
-[[package]]
-name = "nu-utils"
-git = "https://github.com/user/nu-utils"
-tag = "v1.0.0"
-rev = "d4e8f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8"
-sha256 = "..."
+```nu
+# This file is generated automatically. Do not edit.
+{
+  version: 1,
+  packages: [
+    {
+      name: "nu-salesforce",
+      git: "https://github.com/freepicheep/nu-salesforce",
+      tag: "v0.3.2",
+      rev: "68ade5f59f20645b3ddc959ce4a497dab39dc68b",
+      sha256: "cbcd3656edd39927af8cd5fa8faea0e9f8878814f604a862816835100fc6342e",
+    },
+    {
+      name: "nu_plugin_polars",
+      kind: "plugin",
+      git: "nu-core",
+      rev: "nu-0.112.2",
+      path: "nu_plugin_polars",
+      sha256: "91758d8a9160ab7eb1e5af5a26f3990a2bb9e157bbb1c0edecaabd32ce8803e7",
+    },
+  ],
+}
 ```
 
 Plugin entries may also include:
