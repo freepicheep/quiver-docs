@@ -8,7 +8,7 @@ Quiver projects are defined by `nupackage.nuon` and reproduced by `quiver.lock`.
 
 ## `nupackage.nuon`
 
-The manifest has a `[package]` section and dependency groups for modules and plugins.
+The manifest has a `package` section and dependency groups for modules and plugins.
 
 ```nu
 {
@@ -45,7 +45,7 @@ Each module dependency also needs a secure `git` source URL.
 Plugin dependencies support two source modes:
 
 - Git-based plugins with `git` plus exactly one of `tag`, `branch`, or `rev`
-- `source = "nu-core"` plugins with `bin`, and no git ref fields
+- `source: "nu-core"` plugins with `bin`, and no git ref fields
 
 The optional `bin` field is used when the binary name differs from the dependency key or repository name.
 
